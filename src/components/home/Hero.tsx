@@ -5,11 +5,11 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const inspirationalQuotes = [
-  ""Faith is taking the first step even when you don't see the whole staircase." - Martin Luther King Jr.",
-  ""I believe in Christianity as I believe that the sun has risen: not only because I see it, but because by it I see everything else." - C.S. Lewis",
-  ""Prayer does not change God, but it changes him who prays." - Søren Kierkegaard",
-  ""God never said that the journey would be easy, but He did say that the arrival would be worthwhile." - Max Lucado",
-  ""The Christian does not think God will love us because we are good, but that God will make us good because He loves us." - C.S. Lewis"
+  "Faith is taking the first step even when you don't see the whole staircase. - Martin Luther King Jr.",
+  "I believe in Christianity as I believe that the sun has risen: not only because I see it, but because by it I see everything else. - C.S. Lewis",
+  "Prayer does not change God, but it changes him who prays. - Søren Kierkegaard",
+  "God never said that the journey would be easy, but He did say that the arrival would be worthwhile. - Max Lucado",
+  "The Christian does not think God will love us because we are good, but that God will make us good because He loves us. - C.S. Lewis"
 ];
 
 export default function Hero() {
