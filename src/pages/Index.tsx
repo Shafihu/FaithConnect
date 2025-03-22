@@ -1,14 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import Hero from "@/components/home/Hero";
+import ServiceSchedule from "@/components/home/ServiceSchedule";
+import FeaturedSermon from "@/components/home/FeaturedSermon";
+import Testimonials from "@/components/home/Testimonials";
+import UpcomingEvents from "@/components/home/UpcomingEvents";
+import DailyVerse from "@/components/home/DailyVerse";
+import QuickLinks from "@/components/home/QuickLinks";
+import Layout from "@/components/layout/Layout";
+
+export default function Index() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <Layout>
+      <Hero />
+      <ServiceSchedule />
+      <FeaturedSermon />
+      <Testimonials />
+      <UpcomingEvents />
+      <DailyVerse />
+      <QuickLinks />
+    </Layout>
   );
-};
-
-export default Index;
+}
