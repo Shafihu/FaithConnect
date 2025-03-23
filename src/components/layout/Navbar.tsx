@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Church, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
+import UserProfileMenu from "@/components/auth/UserProfileMenu";
 
 const links = [
   { name: "Home", path: "/" },
@@ -19,6 +21,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,12 +77,28 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Button
-            className="ml-2 bg-faith-700 hover:bg-faith-800 text-white"
-            size="sm"
-          >
-            Donate
-          </Button>
+          
+          {isAuthenticated ? (
+            <UserProfileMenu />
+          ) : (
+            <div className="flex items-center gap-2 ml-2">
+              <Button
+                asChild
+                variant="outline"
+                className="border-faith-300 hover:border-faith-400"
+                size="sm"
+              >
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button
+                asChild
+                className="bg-faith-700 hover:bg-faith-800 text-white"
+                size="sm"
+              >
+                <Link to="/signup">Create Account</Link>
+              </Button>
+            </div>
+          )}
         </nav>
 
         {/* Mobile Navigation Toggle */}
@@ -134,12 +153,44 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Button
-                className="mt-4 bg-faith-700 hover:bg-faith-800 text-white animate-fade-in"
-                style={{ animationDelay: `${100 + links.length * 50}ms` }}
-              >
-                Donate
-              </Button>
+              
+              {isAuthenticated ? (
+                <div 
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${100 + links.length * 50}ms` }}
+                >
+                  <Link to="/profile" className="text-lg font-medium text-faith-800 hover:text-faith-700">
+                    My Profile
+                  </Link>
+                  <Button
+                    onClick={() => {
+                      const { logout } = useAuth();
+                      logout();
+                      setIsOpen(false);
+                    }}
+                    variant="ghost"
+                    className="mt-4 text-lg font-medium text-faith-800 hover:text-faith-700 p-0"
+                  >
+                    Log Out
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-4 mt-4 animate-fade-in" style={{ animationDelay: `${100 + links.length * 50}ms` }}>
+                  <Button
+                    asChild
+                    className="w-full bg-faith-700 hover:bg-faith-800 text-white"
+                  >
+                    <Link to="/signup">Create Account</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full border-faith-300 hover:border-faith-400"
+                  >
+                    <Link to="/login">Sign In</Link>
+                  </Button>
+                </div>
+              )}
             </nav>
           </div>
         </div>

@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Users, Heart, ScrollText } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const growthTracks = [
   {
@@ -48,6 +49,8 @@ const growthTracks = [
 ];
 
 export default function Growth() {
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <Layout>
       <div className="py-16 md:py-24">
@@ -64,19 +67,37 @@ export default function Growth() {
             ))}
           </div>
           
-          <Card className="mt-16 bg-faith-50 border border-faith-100">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-serif font-medium text-faith-900">Ready to start your growth journey?</h3>
-                  <p className="text-faith-600">Create an account to track your progress and access exclusive resources.</p>
+          {!isAuthenticated && (
+            <Card className="mt-16 bg-faith-50 border border-faith-100">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-serif font-medium text-faith-900">Ready to start your growth journey?</h3>
+                    <p className="text-faith-600">Create an account to track your progress and access exclusive resources.</p>
+                  </div>
+                  <Button 
+                    asChild
+                    className="bg-faith-700 hover:bg-faith-800 min-w-32"
+                  >
+                    <Link to="/signup">
+                      Create Account <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
-                <Button className="bg-faith-700 hover:bg-faith-800 min-w-32">
-                  Create Account <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
+          
+          {isAuthenticated && (
+            <div className="mt-16 text-center">
+              <h3 className="text-2xl font-serif font-medium text-faith-900 mb-2">
+                Welcome back, {user?.name}!
+              </h3>
+              <p className="text-faith-600 mb-6">
+                Continue your spiritual growth journey from where you left off.
+              </p>
+            </div>
+          )}
           
           <div className="mt-16">
             <GrowthMetrics />

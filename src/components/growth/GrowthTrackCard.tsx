@@ -3,6 +3,9 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/components/ui/use-toast";
 
 interface GrowthTrackProps {
   track: {
@@ -17,6 +20,24 @@ interface GrowthTrackProps {
 
 export default function GrowthTrackCard({ track }: GrowthTrackProps) {
   const { title, description, icon: Icon, color, completionRate } = track;
+  const { isAuthenticated } = useAuth();
+  const { toast } = useToast();
+  
+  const handleContinueTrack = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in or create an account to continue this track.",
+      });
+      return;
+    }
+    
+    toast({
+      title: "Track continued",
+      description: `You are continuing the ${title} track.`,
+    });
+    // In a real app, this would navigate to the specific track content
+  };
   
   return (
     <Card className="h-full flex flex-col border-faith-200 hover:border-faith-300 transition-all duration-300 hover:shadow-md">
@@ -33,12 +54,23 @@ export default function GrowthTrackCard({ track }: GrowthTrackProps) {
           <span>{completionRate}%</span>
         </div>
         <Progress value={completionRate} className="h-2 bg-faith-100" />
-        <Button 
-          variant="outline" 
-          className="w-full mt-4 border-faith-200 hover:border-faith-300 hover:bg-faith-50"
-        >
-          Continue Track
-        </Button>
+        {isAuthenticated ? (
+          <Button 
+            variant="outline" 
+            className="w-full mt-4 border-faith-200 hover:border-faith-300 hover:bg-faith-50"
+            onClick={handleContinueTrack}
+          >
+            Continue Track
+          </Button>
+        ) : (
+          <Button 
+            asChild
+            variant="outline" 
+            className="w-full mt-4 border-faith-200 hover:border-faith-300 hover:bg-faith-50"
+          >
+            <Link to="/login">Sign In to Continue</Link>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
