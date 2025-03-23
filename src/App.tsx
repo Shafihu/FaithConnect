@@ -12,6 +12,7 @@ import Sermons from "./pages/Sermons";
 import SermonDetail from "./pages/SermonDetail";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
+import Growth from "./pages/Growth";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/sermons/:id" element={<SermonDetail />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetail />} />
+          <Route path="/growth" element={<Growth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
