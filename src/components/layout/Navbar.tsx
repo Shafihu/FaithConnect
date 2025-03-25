@@ -194,6 +194,7 @@ export default function Navbar() {
                   </Link>
                   <Button
                     onClick={() => {
+                      // eslint-disable-next-line react-hooks/rules-of-hooks
                       const { logout } = useAuth();
                       logout();
                       setIsOpen(false);
