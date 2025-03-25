@@ -36,6 +36,18 @@
     --ring: 224 71.4% 4.1%;
     
     --radius: 0.5rem;
+
+    --faith-50: #f8f9fa;
+    --faith-100: #edf0f2;
+    --faith-200: #dde3e7;
+    --faith-300: #c1ccd3;
+    --faith-400: #9eadb8;
+    --faith-500: #7a8c9b;
+    --faith-600: #5d6e7d;
+    --faith-700: #465564;
+    --faith-800: #343f4a;
+    --faith-900: #1e252c;
+    --faith-950: #0f1419;
   }
  
   .dark {

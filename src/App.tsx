@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,6 +29,8 @@ import AdminEvents from "./pages/admin/AdminEvents";
 import AdminSermons from "./pages/admin/AdminSermons";
 import AdminPosts from "./pages/admin/AdminPosts";
 import AdminQuizzes from "./pages/admin/AdminQuizzes";
+import AdminCalendar from "./pages/admin/AdminCalendar";
+import ChurchCalendar from "./pages/Calendar";
 
 const queryClient = new QueryClient();
 
@@ -55,59 +56,68 @@ const App = () => (
                 <Route path="/posts/:id" element={<PostDetail />} />
                 <Route path="/quizzes" element={<Quizzes />} />
                 <Route path="/quizzes/:id" element={<QuizDetail />} />
+                <Route path="/calendar" element={<ChurchCalendar />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route 
-                  path="/profile" 
+                <Route
+                  path="/profile"
                   element={
                     <ProtectedRoute>
                       <Profile />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                
+
                 {/* Admin Routes */}
-                <Route 
-                  path="/admin" 
+                <Route
+                  path="/admin"
                   element={
                     <AdminRoute>
                       <AdminDashboard />
                     </AdminRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="/admin/events" 
+                <Route
+                  path="/admin/events"
                   element={
                     <AdminRoute>
                       <AdminEvents />
                     </AdminRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="/admin/sermons" 
+                <Route
+                  path="/admin/sermons"
                   element={
                     <AdminRoute>
                       <AdminSermons />
                     </AdminRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="/admin/posts" 
+                <Route
+                  path="/admin/posts"
                   element={
                     <AdminRoute>
                       <AdminPosts />
                     </AdminRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="/admin/quizzes" 
+                <Route
+                  path="/admin/quizzes"
                   element={
                     <AdminRoute>
                       <AdminQuizzes />
                     </AdminRoute>
-                  } 
+                  }
                 />
-                
+                <Route
+                  path="/admin/calendar"
+                  element={
+                    <AdminRoute>
+                      <AdminCalendar />
+                    </AdminRoute>
+                  }
+                />
+
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

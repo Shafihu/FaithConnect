@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -14,6 +13,7 @@ const links = [
   { name: "Events", path: "/events" },
   { name: "Growth", path: "/growth" },
   { name: "Quizzes", path: "/quizzes" },
+  { name: "Calendar", path: "/calendar" },
   { name: "Posts", path: "/posts" },
   { name: "Contact", path: "/contact" },
 ];
@@ -52,8 +52,8 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="flex items-center gap-2 transition-transform hover:scale-[1.02] duration-300"
         >
           <Church className="h-6 w-6 text-faith-700" />
@@ -78,7 +78,7 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          
+
           {isAdmin && (
             <Link
               to="/admin"
@@ -92,7 +92,7 @@ export default function Navbar() {
               Admin
             </Link>
           )}
-          
+
           {isAuthenticated ? (
             <UserProfileMenu />
           ) : (
@@ -168,7 +168,7 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              
+
               {isAdmin && (
                 <Link
                   to="/admin"
@@ -183,13 +183,20 @@ export default function Navbar() {
                   Admin Dashboard
                 </Link>
               )}
-              
+
               {isAuthenticated ? (
-                <div 
+                <div
                   className="animate-fade-in"
-                  style={{ animationDelay: `${100 + (links.length + (isAdmin ? 1 : 0)) * 50}ms` }}
+                  style={{
+                    animationDelay: `${
+                      100 + (links.length + (isAdmin ? 1 : 0)) * 50
+                    }ms`,
+                  }}
                 >
-                  <Link to="/profile" className="text-lg font-medium text-faith-800 hover:text-faith-700">
+                  <Link
+                    to="/profile"
+                    className="text-lg font-medium text-faith-800 hover:text-faith-700"
+                  >
                     My Profile
                   </Link>
                   <Button
@@ -206,7 +213,10 @@ export default function Navbar() {
                   </Button>
                 </div>
               ) : (
-                <div className="space-y-4 mt-4 animate-fade-in" style={{ animationDelay: `${100 + links.length * 50}ms` }}>
+                <div
+                  className="space-y-4 mt-4 animate-fade-in"
+                  style={{ animationDelay: `${100 + links.length * 50}ms` }}
+                >
                   <Button
                     asChild
                     className="w-full bg-faith-700 hover:bg-faith-800 text-white"

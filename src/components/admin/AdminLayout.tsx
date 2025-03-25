@@ -1,7 +1,13 @@
-
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { Calendar, BookOpen, ListPlus, MessageSquare, LayoutDashboard, BookText } from "lucide-react";
+import {
+  Calendar,
+  BookOpen,
+  ListPlus,
+  MessageSquare,
+  LayoutDashboard,
+  BookText,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +22,7 @@ const navItems = [
   { name: "Sermons", path: "/admin/sermons", icon: BookOpen },
   { name: "Posts", path: "/admin/posts", icon: MessageSquare },
   { name: "Quizzes", path: "/admin/quizzes", icon: BookText },
+  { name: "Calendar", path: "/admin/calendar", icon: Calendar },
 ];
 
 export default function AdminLayout({ children, title }: AdminLayoutProps) {
@@ -37,7 +44,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
               <p className="font-medium">{user?.name}</p>
             </div>
           </div>
-          
+
           <nav className="flex-1 p-4">
             <ul className="space-y-1">
               {navItems.map((item) => (
@@ -58,7 +65,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
               ))}
             </ul>
           </nav>
-          
+
           <div className="p-4 mt-auto">
             <Button asChild variant="outline" className="w-full">
               <Link to="/">Back to Site</Link>
@@ -66,7 +73,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
           </div>
         </div>
       </div>
-      
+
       <div className="ml-64 p-8">
         <header className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
