@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { PostProvider } from "@/context/PostContext";
+import { QuizProvider } from "@/context/QuizContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AdminRoute from "@/components/auth/AdminRoute";
 import Index from "./pages/Index";
@@ -22,10 +23,13 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Posts from "./pages/Posts";
 import PostDetail from "./pages/PostDetail";
+import Quizzes from "./pages/Quizzes";
+import QuizDetail from "./pages/QuizDetail";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminEvents from "./pages/admin/AdminEvents";
 import AdminSermons from "./pages/admin/AdminSermons";
 import AdminPosts from "./pages/admin/AdminPosts";
+import AdminQuizzes from "./pages/admin/AdminQuizzes";
 
 const queryClient = new QueryClient();
 
@@ -33,71 +37,83 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <PostProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/sermons" element={<Sermons />} />
-              <Route path="/sermons/:id" element={<SermonDetail />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<EventDetail />} />
-              <Route path="/growth" element={<Growth />} />
-              <Route path="/posts" element={<Posts />} />
-              <Route path="/posts/:id" element={<PostDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route 
-                path="/profile" 
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Admin Routes */}
-              <Route 
-                path="/admin" 
-                element={
-                  <AdminRoute>
-                    <AdminDashboard />
-                  </AdminRoute>
-                } 
-              />
-              <Route 
-                path="/admin/events" 
-                element={
-                  <AdminRoute>
-                    <AdminEvents />
-                  </AdminRoute>
-                } 
-              />
-              <Route 
-                path="/admin/sermons" 
-                element={
-                  <AdminRoute>
-                    <AdminSermons />
-                  </AdminRoute>
-                } 
-              />
-              <Route 
-                path="/admin/posts" 
-                element={
-                  <AdminRoute>
-                    <AdminPosts />
-                  </AdminRoute>
-                } 
-              />
-              
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <QuizProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/sermons" element={<Sermons />} />
+                <Route path="/sermons/:id" element={<SermonDetail />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/events/:id" element={<EventDetail />} />
+                <Route path="/growth" element={<Growth />} />
+                <Route path="/posts" element={<Posts />} />
+                <Route path="/posts/:id" element={<PostDetail />} />
+                <Route path="/quizzes" element={<Quizzes />} />
+                <Route path="/quizzes/:id" element={<QuizDetail />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                {/* Admin Routes */}
+                <Route 
+                  path="/admin" 
+                  element={
+                    <AdminRoute>
+                      <AdminDashboard />
+                    </AdminRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin/events" 
+                  element={
+                    <AdminRoute>
+                      <AdminEvents />
+                    </AdminRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin/sermons" 
+                  element={
+                    <AdminRoute>
+                      <AdminSermons />
+                    </AdminRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin/posts" 
+                  element={
+                    <AdminRoute>
+                      <AdminPosts />
+                    </AdminRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin/quizzes" 
+                  element={
+                    <AdminRoute>
+                      <AdminQuizzes />
+                    </AdminRoute>
+                  } 
+                />
+                
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QuizProvider>
       </PostProvider>
     </AuthProvider>
   </QueryClientProvider>

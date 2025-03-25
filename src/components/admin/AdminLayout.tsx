@@ -1,7 +1,7 @@
 
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { Calendar, BookOpen, ListPlus, MessageSquare, LayoutDashboard } from "lucide-react";
+import { Calendar, BookOpen, ListPlus, MessageSquare, LayoutDashboard, BookText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const navItems = [
   { name: "Events", path: "/admin/events", icon: Calendar },
   { name: "Sermons", path: "/admin/sermons", icon: BookOpen },
   { name: "Posts", path: "/admin/posts", icon: MessageSquare },
+  { name: "Quizzes", path: "/admin/quizzes", icon: BookText },
 ];
 
 export default function AdminLayout({ children, title }: AdminLayoutProps) {
