@@ -99,18 +99,27 @@ export default function AdminQuizzes() {
       return;
     }
 
+    // Create new quiz object
     const newQuiz = {
       title: values.title,
       description: values.description,
       category: values.category.toLowerCase(),
       timeMinutes: values.timeMinutes,
-      questions,
+      questions: questions.map(q => ({
+        question: q.question,
+        options: q.options,
+        correctAnswer: q.correctAnswer
+      })),
     };
 
+    // Add the quiz
     addQuiz(newQuiz);
+    
+    console.log("New quiz created:", newQuiz);
+    
     toast({
       title: "Quiz created",
-      description: "The quiz has been successfully created",
+      description: "The quiz has been successfully created and is now available",
     });
 
     // Reset form

@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 
@@ -275,11 +274,24 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
       id: Math.random().toString(36).substr(2, 9),
     };
     
+    // Update the quizzes state with the new quiz
     setQuizzes(prev => [...prev, newQuiz]);
+    
+    // Make sure to save immediately to localStorage
+    const updatedQuizzes = [...quizzes, newQuiz];
+    localStorage.setItem('faithconnect_quizzes', JSON.stringify(updatedQuizzes));
+    
+    console.log("Quiz added:", newQuiz);
+    console.log("Current quizzes:", updatedQuizzes);
   };
 
   const deleteQuiz = (id: string) => {
-    setQuizzes(prevQuizzes => prevQuizzes.filter(quiz => quiz.id !== id));
+    setQuizzes(prevQuizzes => {
+      const updatedQuizzes = prevQuizzes.filter(quiz => quiz.id !== id);
+      // Immediately update localStorage
+      localStorage.setItem('faithconnect_quizzes', JSON.stringify(updatedQuizzes));
+      return updatedQuizzes;
+    });
   };
 
   return (
