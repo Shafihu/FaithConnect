@@ -13,6 +13,7 @@ const links = [
   { name: "Sermons", path: "/sermons" },
   { name: "Events", path: "/events" },
   { name: "Growth", path: "/growth" },
+  { name: "Quizzes", path: "/quizzes" },
   { name: "Posts", path: "/posts" },
   { name: "Contact", path: "/contact" },
 ];
