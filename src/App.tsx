@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { PostProvider } from "@/context/PostContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import AdminRoute from "@/components/auth/AdminRoute";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -21,6 +22,10 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Posts from "./pages/Posts";
 import PostDetail from "./pages/PostDetail";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminEvents from "./pages/admin/AdminEvents";
+import AdminSermons from "./pages/admin/AdminSermons";
+import AdminPosts from "./pages/admin/AdminPosts";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +58,41 @@ const App = () => (
                   </ProtectedRoute>
                 } 
               />
+              
+              {/* Admin Routes */}
+              <Route 
+                path="/admin" 
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                } 
+              />
+              <Route 
+                path="/admin/events" 
+                element={
+                  <AdminRoute>
+                    <AdminEvents />
+                  </AdminRoute>
+                } 
+              />
+              <Route 
+                path="/admin/sermons" 
+                element={
+                  <AdminRoute>
+                    <AdminSermons />
+                  </AdminRoute>
+                } 
+              />
+              <Route 
+                path="/admin/posts" 
+                element={
+                  <AdminRoute>
+                    <AdminPosts />
+                  </AdminRoute>
+                } 
+              />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 // Define types for our auth state and context
 type User = {
@@ -8,11 +8,13 @@ type User = {
   email: string;
   name: string;
   profileImage?: string;
+  isAdmin?: boolean;
 };
 
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   signup: (name: string, email: string, password: string) => Promise<void>;
@@ -23,6 +25,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
+  isAdmin: false,
   isLoading: true,
   login: async () => {},
   signup: async () => {},
@@ -61,7 +64,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           id: "user1",
           email,
           name: "Test User",
-          profileImage: "/images/placeholder.svg"
+          profileImage: "/images/placeholder.svg",
+          isAdmin: false
         };
         
         setUser(newUser);
@@ -69,6 +73,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         toast({
           title: "Welcome back!",
           description: "You've successfully logged in.",
+        });
+        return;
+      }
+      
+      // Special admin login
+      if (email === "admin@example.com" && password === "adminpass") {
+        const adminUser = {
+          id: "admin1",
+          email,
+          name: "Pastor James",
+          profileImage: "/images/placeholder.svg",
+          isAdmin: true
+        };
+        
+        setUser(adminUser);
+        localStorage.setItem('faithconnect_user', JSON.stringify(adminUser));
+        toast({
+          title: "Welcome back, Pastor!",
+          description: "You've successfully logged in as an administrator.",
         });
         return;
       }
@@ -97,6 +120,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         id: `user${Math.floor(Math.random() * 1000)}`,
         email,
         name,
+        isAdmin: false
       };
       
       setUser(newUser);
@@ -131,6 +155,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{ 
         user, 
         isAuthenticated: !!user, 
+        isAdmin: !!user?.isAdmin,
         isLoading, 
         login, 
         signup, 

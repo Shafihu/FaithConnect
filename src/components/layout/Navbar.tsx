@@ -21,7 +21,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +77,20 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+          
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className={cn(
+                "text-sm font-medium transition-colors hover-underline",
+                location.pathname.startsWith("/admin")
+                  ? "text-faith-700"
+                  : "text-faith-800 hover:text-faith-700"
+              )}
+            >
+              Admin
+            </Link>
+          )}
           
           {isAuthenticated ? (
             <UserProfileMenu />
@@ -154,10 +168,25 @@ export default function Navbar() {
                 </Link>
               ))}
               
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className={cn(
+                    "text-lg font-medium transition-colors animate-fade-in",
+                    location.pathname.startsWith("/admin")
+                      ? "text-faith-700"
+                      : "text-faith-800 hover:text-faith-700"
+                  )}
+                  style={{ animationDelay: `${100 + links.length * 50}ms` }}
+                >
+                  Admin Dashboard
+                </Link>
+              )}
+              
               {isAuthenticated ? (
                 <div 
                   className="animate-fade-in"
-                  style={{ animationDelay: `${100 + links.length * 50}ms` }}
+                  style={{ animationDelay: `${100 + (links.length + (isAdmin ? 1 : 0)) * 50}ms` }}
                 >
                   <Link to="/profile" className="text-lg font-medium text-faith-800 hover:text-faith-700">
                     My Profile
