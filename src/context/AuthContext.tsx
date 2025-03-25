@@ -1,5 +1,10 @@
-
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+} from "react";
 import { useToast } from "@/hooks/use-toast";
 
 // Define types for our auth state and context
@@ -40,13 +45,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // Check for saved user in local storage on mount
-    const storedUser = localStorage.getItem('faithconnect_user');
+    const storedUser = localStorage.getItem("faithconnect_user");
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error("Failed to parse stored user:", error);
-        localStorage.removeItem('faithconnect_user');
+        localStorage.removeItem("faithconnect_user");
       }
     }
     setIsLoading(false);
@@ -56,51 +61,54 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       // Simulating API call - in a real app, this would be a fetch to your backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // Simple validation (would normally be done server-side)
-      if (email === "test@example.com" && password === "password") {
+      if (email === "cynthiaagyemang99@gmail.com" && password === "password") {
         const newUser = {
           id: "user1",
           email,
-          name: "Test User",
+          name: "Cynthia Agyei Mensah",
           profileImage: "/images/placeholder.svg",
-          isAdmin: false
+          isAdmin: false,
         };
-        
+
         setUser(newUser);
-        localStorage.setItem('faithconnect_user', JSON.stringify(newUser));
+        localStorage.setItem("faithconnect_user", JSON.stringify(newUser));
         toast({
           title: "Welcome back!",
           description: "You've successfully logged in.",
         });
         return;
       }
-      
+
       // Special admin login
-      if (email === "admin@example.com" && password === "adminpass") {
+      if (email === "michaeljohnson77@gmail.com" && password === "adminpass") {
         const adminUser = {
           id: "admin1",
           email,
-          name: "Pastor James",
-          profileImage: "/images/placeholder.svg",
-          isAdmin: true
+          name: "Pastor Michael Johnson",
+          profileImage: "/images/pastor-1.jpg",
+          isAdmin: true,
         };
-        
+
         setUser(adminUser);
-        localStorage.setItem('faithconnect_user', JSON.stringify(adminUser));
+        localStorage.setItem("faithconnect_user", JSON.stringify(adminUser));
         toast({
           title: "Welcome back, Pastor!",
           description: "You've successfully logged in as an administrator.",
         });
         return;
       }
-      
+
       throw new Error("Invalid credentials");
     } catch (error) {
       toast({
         title: "Login failed",
-        description: error instanceof Error ? error.message : "Please check your credentials and try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Please check your credentials and try again.",
         variant: "destructive",
       });
       throw error;
@@ -113,18 +121,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // In a real application, we'd send this data to an API
       const newUser = {
         id: `user${Math.floor(Math.random() * 1000)}`,
         email,
         name,
-        isAdmin: false
+        isAdmin: false,
       };
-      
+
       setUser(newUser);
-      localStorage.setItem('faithconnect_user', JSON.stringify(newUser));
+      localStorage.setItem("faithconnect_user", JSON.stringify(newUser));
       toast({
         title: "Account created!",
         description: "Your account has been successfully created.",
@@ -132,7 +140,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       toast({
         title: "Sign up failed",
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description:
+          error instanceof Error ? error.message : "Please try again later.",
         variant: "destructive",
       });
       throw error;
@@ -143,7 +152,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('faithconnect_user');
+    localStorage.removeItem("faithconnect_user");
     toast({
       title: "Logged out",
       description: "You've been successfully logged out.",
@@ -151,15 +160,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        isAuthenticated: !!user, 
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
         isAdmin: !!user?.isAdmin,
-        isLoading, 
-        login, 
-        signup, 
-        logout 
+        isLoading,
+        login,
+        signup,
+        logout,
       }}
     >
       {children}
