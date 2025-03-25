@@ -141,6 +141,15 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  to="/calendar"
+                  className="text-faith-200 hover:text-faith-100 transition-colors text-sm flex items-center gap-2"
+                >
+                  <ArrowRight className="h-3 w-3" />
+                  Calendar
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/ministries"
                   className="text-faith-200 hover:text-faith-100 transition-colors text-sm flex items-center gap-2"
                 >
