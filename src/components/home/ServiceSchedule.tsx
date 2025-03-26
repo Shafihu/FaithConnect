@@ -1,7 +1,9 @@
-import { Clock, MapPin } from "lucide-react";
+
+import { Clock, MapPin, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const services = [
   {
@@ -11,6 +13,7 @@ const services = [
     location: "Main Sanctuary",
     description:
       "Join us for worship, prayer, and an inspiring message from our pastor.",
+    image: "/images/church-interior.jpg",
   },
   {
     id: 2,
@@ -19,6 +22,7 @@ const services = [
     location: "Main Sanctuary",
     description:
       "A more intimate gathering focused on deep worship and Bible study.",
+    image: "/images/sermon-2.jpg",
   },
   {
     id: 3,
@@ -27,6 +31,7 @@ const services = [
     location: "Prayer Chapel",
     description:
       "A midweek spiritual refreshment with focused prayer and short teaching.",
+    image: "/images/event-worship.jpg",
   },
   {
     id: 4,
@@ -35,10 +40,13 @@ const services = [
     location: "Youth Hall",
     description:
       "For teenagers and young adults with worship, games, and relevant teaching.",
+    image: "/images/event-youth.jpg",
   },
 ];
 
 export default function ServiceSchedule() {
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+
   return (
     <section className="py-16 md:py-24 bg-faith-50">
       <div className="container px-4 md:px-6">
@@ -52,29 +60,52 @@ export default function ServiceSchedule() {
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="bg-white rounded-lg shadow-sm border border-faith-100 p-6 hover:shadow-md transition-shadow duration-300 hover:border-faith-200"
+              className="bg-white rounded-lg shadow-sm border border-faith-100 overflow-hidden hover:shadow-md transition-all duration-300 hover:border-faith-200 group"
+              onMouseEnter={() => setHoveredService(index)}
+              onMouseLeave={() => setHoveredService(null)}
             >
-              <div className="space-y-4">
-                <h3 className="text-xl font-medium text-faith-900">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.name}
+                  className={`w-full h-full object-cover transition-transform duration-500 ${
+                    hoveredService === index ? "scale-110" : "scale-100"
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <h3 className="absolute bottom-4 left-4 right-4 text-xl font-medium text-white">
                   {service.name}
                 </h3>
+              </div>
+              
+              <div className="p-5 space-y-3">
                 <div className="flex items-center text-faith-700 gap-2 text-sm">
-                  <Clock className="h-4 w-4" />
+                  <Clock className="h-4 w-4 text-faith-500 flex-shrink-0" />
                   <span>{service.time}</span>
                 </div>
                 <div className="flex items-center text-faith-700 gap-2 text-sm">
-                  <MapPin className="h-4 w-4" />
+                  <MapPin className="h-4 w-4 text-faith-500 flex-shrink-0" />
                   <span>{service.location}</span>
                 </div>
-                <p className="text-faith-600 text-sm">{service.description}</p>
+                <p className="text-faith-600 text-sm pt-1">{service.description}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild className="bg-faith-700 hover:bg-faith-800">
-            <Link to={"/calendar"}>View Full Calendar</Link>
+            <Link to={"/calendar"} className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              View Full Calendar
+            </Link>
+          </Button>
+          
+          <Button variant="outline" asChild className="border-faith-200 text-faith-700 hover:bg-faith-50">
+            <Link to={"/contact"} className="flex items-center gap-2">
+              Get Directions
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </div>
